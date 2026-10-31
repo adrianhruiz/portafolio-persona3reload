@@ -1,17 +1,22 @@
-/* Palette: https://www.color-hex.com/color-palette/95744 (+ P3R red for hover) */
+/* Palette: https://www.color-hex.com/color-palette/95744. Gold is the only
+   accent, so highlights stand out against the blues. */
 :root {
   --sky: #79d7fd;
   --cyan: #00bbfa;
   --night: #001736;
   --night-2: #00183e;
   --gold: #ffc54a;
-  --red: #e8202a;
   --white: #ffffff;
 
   --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   --font-body: 'Barlow', system-ui, sans-serif;
   --tilt: -8deg;
   --ease-snap: cubic-bezier(0.2, 0.9, 0.3, 1.2);
+
+  /* Shared box spacing, so every card carries the same visual weight */
+  --card-pad: 1.5rem 2rem 1.5rem 1.5rem;
+  /* Highlighted text: dark on gold, lifted by a white shadow */
+  --highlight-shadow: 3px 3px 0 var(--white);
 }
 
 *,
@@ -67,8 +72,8 @@ ul {
   grid-template-areas:
     'wallet wallet'
     'menu   panel';
-  gap: 1rem 3rem;
-  padding: 2rem clamp(1rem, 4vw, 4rem) 1.5rem;
+  gap: 3rem 3rem;
+  padding: 2rem clamp(1rem, 4vw, 4rem) 3rem;
   background: var(--night);
 }
 
@@ -162,11 +167,11 @@ ul {
   }
 }
 
-/* ---------- Name, top left ---------- */
+/* ---------- Name, top right ---------- */
 
 .wallet {
   grid-area: wallet;
-  justify-self: start;
+  justify-self: end;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -176,7 +181,7 @@ ul {
 }
 
 .wallet-name {
-  font: italic 800 2.4rem / 1 var(--font-display);
+  font: italic 800 clamp(2.4rem, 4vw, 3.2rem) / 1 var(--font-display);
   text-transform: uppercase;
 }
 
@@ -242,7 +247,8 @@ ul {
 
 .panel {
   grid-area: panel;
-  align-self: center;
+  /* Starts on the same line as the menu */
+  align-self: start;
   position: relative;
   z-index: 1;
   justify-self: center;
@@ -273,7 +279,7 @@ ul {
 .card {
   position: relative;
   isolation: isolate;
-  padding: 1.4rem 2rem 1.5rem 1.5rem;
+  padding: var(--card-pad);
 }
 
 .card::before {
@@ -309,28 +315,29 @@ ul {
 
 .about-sections {
   display: grid;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
+/* Section heading: clearly above the entries it contains */
 .detail-label {
-  margin: 0 0 0.5rem;
-  font: italic 900 1.4rem / 1 var(--font-display);
+  margin: 0 0 1.5rem;
+  font: italic 900 2.2rem / 1 var(--font-display);
   text-transform: uppercase;
 }
 
 .timeline {
   display: grid;
-  gap: 1.25rem;
+  gap: 2rem;
 }
 
 .timeline li {
-  padding-left: 1rem;
+  padding-left: 1.25rem;
   border-left: 2px solid rgb(121 215 253 / 0.35);
 }
 
 .timeline-role {
   margin: 0;
-  font: italic 900 1.4rem / 1.15 var(--font-display);
+  font: italic 900 1.3rem / 1.15 var(--font-display);
   text-transform: uppercase;
   color: var(--sky);
 }
@@ -340,7 +347,7 @@ ul {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.2rem 0.6rem;
-  margin: 0.2rem 0 0.35rem;
+  margin: 0.35rem 0 0.6rem;
   font: italic 700 1rem / 1.3 var(--font-display);
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -357,6 +364,7 @@ ul {
 .timeline-text {
   margin: 0;
   max-width: 40rem;
+  line-height: 1.65;
   color: rgb(255 255 255 / 0.88);
 }
 
@@ -399,7 +407,7 @@ ul {
     text-shadow 0.12s;
 }
 
-/* ---------- Red slash highlight, shared by menu and links ---------- */
+/* ---------- Gold slash highlight, shared by menu and links ---------- */
 
 .menu-item span,
 .slash-hover :is(a, button) span {
@@ -413,7 +421,7 @@ ul {
   position: absolute;
   z-index: -1;
   inset: 22% -12% 18% -6%;
-  background: var(--red);
+  background: var(--gold);
   clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
   transform: scaleX(0) skewY(-4deg);
   transform-origin: left center;
@@ -426,7 +434,7 @@ ul {
   color: var(--night);
   opacity: 1;
   transform: rotate(var(--tilt)) scale(1.12) translateX(0.3rem);
-  text-shadow: 3px 3px 0 var(--white);
+  text-shadow: var(--highlight-shadow);
 }
 
 .menu-item:hover span::before,
@@ -458,26 +466,22 @@ ul {
 
 .project-list {
   display: grid;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .project {
-  padding: 1rem 1.25rem 1.1rem;
+  padding: var(--card-pad);
   background: rgb(0 23 54 / 0.65);
   border-left: 4px solid var(--cyan);
   clip-path: polygon(0 0, 100% 0, calc(100% - 1rem) 100%, 0 100%);
   backdrop-filter: blur(4px);
-  transition: border-color 0.15s;
-}
-
-.project:hover {
-  border-color: var(--red);
 }
 
 .project-image {
   display: block;
   width: 100%;
-  max-height: 14rem;
+  /* Same frame for every project, whatever the screenshot size */
+  height: clamp(10rem, 26vw, 14rem);
   object-fit: cover;
   /* Screenshots: show the top of the page */
   object-position: top;
@@ -493,12 +497,15 @@ ul {
 .slash-hover :is(a, button) {
   text-decoration: none;
   color: var(--sky);
-  transition: color 0.12s;
+  transition:
+    color 0.12s,
+    text-shadow 0.12s;
 }
 
 .slash-hover :is(a, button):hover,
 .slash-hover :is(a, button):focus-visible {
   color: var(--night);
+  text-shadow: var(--highlight-shadow);
 }
 
 .project p {
@@ -618,15 +625,7 @@ ul {
 
 .contact {
   display: grid;
-  gap: 0.25rem;
-}
-
-.contact {
-  gap: 1rem;
-}
-
-.contact .card {
-  padding: 1rem 2rem 1.1rem 1.5rem;
+  gap: 1.5rem;
 }
 
 .contact li {
@@ -659,6 +658,10 @@ ul {
   }
 
   /* Smaller name */
+  .wallet {
+    justify-self: start;
+  }
+
   .wallet-name {
     font-size: 1.8rem;
   }

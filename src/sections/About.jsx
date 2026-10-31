@@ -8,14 +8,14 @@ const EXPERIENCE = [
     place: 'Tecnalis',
     dates: 'Jul 2021 – Present',
     text: 'Development of Alira, a gaming management platform used by online gaming and sports betting operators.',
-    tags: ['Java', 'SQL', 'Linux', 'AI Tools', 'Performance', 'Testing'],
+    tags: ['Java', 'SQL', 'Linux', 'AI Tools'],
   },
   {
     role: 'Software Developer Intern',
     place: 'Suertia',
     dates: 'Apr 2021 – Jun 2021',
     text: 'Web development for an online gaming and betting operator.',
-    tags: ['JavaScript', 'PHP', 'Responsive Web Design'],
+    tags: ['JavaScript', 'PHP'],
   },
   {
     role: 'IT Helpdesk Intern',
