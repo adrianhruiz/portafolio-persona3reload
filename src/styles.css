@@ -480,8 +480,9 @@ ul {
 .project-image {
   display: block;
   width: 100%;
-  /* Same frame for every project, whatever the screenshot size */
-  height: clamp(10rem, 26vw, 14rem);
+  /* Same frame for every project, whatever the screenshot size. 3:1 matches
+     the widest screenshots, so they are never cropped at the sides */
+  aspect-ratio: 3 / 1;
   object-fit: cover;
   /* Screenshots: show the top of the page */
   object-position: top;
